@@ -108,16 +108,16 @@ TRANSLATE_SUGGESTION = {
 ATTR_SUGGESTION = "suggestion"
 
 async def async_setup_entry(hass, config_entry, async_add_entities):    
-    """Add a Colorfulclouds weather entity from a config_entry."""
+    """Add a colorfulclouds_weather weather entity from a config_entry."""
     name = config_entry.data[CONF_NAME]
     life = config_entry.options.get(CONF_LIFEINDEX, False)
 
     coordinator = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
     _LOGGER.debug("metric: %s", coordinator.data["is_metric"])
 
-    async_add_entities([ColorfulCloudsEntity(name, life, coordinator)], False)
+    async_add_entities([colorfulclouds_weatherEntity(name, life, coordinator)], False)
             
-class ColorfulCloudsEntity(WeatherEntity):
+class colorfulclouds_weatherEntity(WeatherEntity):
     """Representation of a weather condition."""
 
     def __init__(self, name, life, coordinator):
@@ -302,7 +302,7 @@ class ColorfulCloudsEntity(WeatherEntity):
     @property
     def state_attributes(self):
         _LOGGER.debug(self.coordinator.data)
-        data = super(ColorfulCloudsEntity, self).state_attributes
+        data = super(colorfulclouds_weatherEntity, self).state_attributes
         data['forecast_hourly'] = self.forecast_hourly
         data['forecast_minutely'] = self.forecast_minutely
         data['forecast_probability'] = self.forecast_minutely_probability
@@ -332,7 +332,7 @@ class ColorfulCloudsEntity(WeatherEntity):
         
         if self.life == True:
             data[ATTR_SUGGESTION] = [{'title': k, 'title_cn': TRANSLATE_SUGGESTION.get(k,k), 'brf': v.get('desc'), 'txt': v.get('detail')} for k, v in self.coordinator.data['lifeindex'].items()]
-            data["custom_ui_more_info"] = "colorfulclouds-weather-more-info"        
+            data["custom_ui_more_info"] = "colorfulclouds_weather-weather-more-info"        
         return data  
 
     @property
@@ -361,6 +361,6 @@ class ColorfulCloudsEntity(WeatherEntity):
         )
 
     async def async_update(self):
-        """Update Colorfulclouds entity."""
+        """Update colorfulclouds_weather entity."""
         await self.coordinator.async_request_refresh()
         

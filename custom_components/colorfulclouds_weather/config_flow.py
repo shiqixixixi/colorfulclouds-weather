@@ -1,5 +1,5 @@
 
-"""Adds config flow for Colorfulclouds."""
+"""Adds config flow for colorfulclouds_weather."""
 import logging
 import requests
 import json
@@ -22,12 +22,12 @@ import voluptuous as vol
 _LOGGER = logging.getLogger(__name__)
 
 @config_entries.HANDLERS.register(DOMAIN)
-class ColorfulcloudslowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+class colorfulclouds_weatherlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     @staticmethod
     @callback
     def async_get_options_flow(config_entry):
         """Get the options flow for this handler."""
-        return ColorfulcloudsOptionsFlow(config_entry)
+        return colorfulclouds_weatherOptionsFlow(config_entry)
 
     def __init__(self):
         """Initialize."""
@@ -94,11 +94,11 @@ class ColorfulcloudslowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             if host == entry.data.get(CONF_NAME):
                 return True
 
-class ColorfulcloudsOptionsFlow(config_entries.OptionsFlow):
-    """Config flow options for Colorfulclouds."""
+class colorfulclouds_weatherOptionsFlow(config_entries.OptionsFlow):
+    """Config flow options for colorfulclouds_weather."""
 
     def __init__(self, config_entry):
-        """Initialize Colorfulclouds options flow."""
+        """Initialize colorfulclouds_weather options flow."""
         self.config_entry = config_entry
 
     async def async_step_init(self, user_input=None):

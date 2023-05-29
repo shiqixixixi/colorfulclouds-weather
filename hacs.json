@@ -1,0 +1,7 @@
+{
+    "name": "colorfulclouds_weather",
+    "domains": ["weather","sensor"],
+    "render_readme": true,
+    "homeassistant": "2023.5.4",
+    "country": ["CN"]
+  }

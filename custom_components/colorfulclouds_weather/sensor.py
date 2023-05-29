@@ -1,4 +1,4 @@
-"""Support for the Colorfulclouds service."""
+"""Support for the colorfulclouds_weather service."""
 import logging
 
 from homeassistant.const import (
@@ -30,14 +30,14 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
-    """Add Colorfulclouds entities from a config_entry."""
+    """Add colorfulclouds_weather entities from a config_entry."""
     name = config_entry.data[CONF_NAME]
 
     coordinator = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
 
     sensors = []
     for sensor in SENSOR_TYPES:
-        sensors.append(ColorfulcloudsSensor(name, sensor, coordinator))
+        sensors.append(colorfulclouds_weatherSensor(name, sensor, coordinator))
 
     # if coordinator.forecast:
     #     for sensor in FORECAST_SENSOR_TYPES:
@@ -46,14 +46,14 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     #             # locations.
     #             if sensor in coordinator.data[ATTR_FORECAST][0]:
     #                 sensors.append(
-    #                     ColorfulcloudsSensor(name, sensor, coordinator, forecast_day=day)
+    #                     colorfulclouds_weatherSensor(name, sensor, coordinator, forecast_day=day)
     #                 )
 
     async_add_entities(sensors, False)
 
 
-class ColorfulcloudsSensor(Entity):
-    """Define an Colorfulclouds entity."""
+class colorfulclouds_weatherSensor(Entity):
+    """Define an colorfulclouds_weather entity."""
 
     def __init__(self, name, kind, coordinator, forecast_day=None):
         """Initialize."""
@@ -210,5 +210,5 @@ class ColorfulcloudsSensor(Entity):
         )
 
     async def async_update(self):
-        """Update Colorfulclouds entity."""
+        """Update colorfulclouds_weather entity."""
         await self.coordinator.async_request_refresh()

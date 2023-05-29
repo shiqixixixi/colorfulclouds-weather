@@ -11,7 +11,7 @@ REQUIRED_FILES = [
     "config_flow.py",
     "translations/en.json",
 ]
-VERSION = "2023.1.22"
+VERSION = "2023.5.29"
 ISSUE_URL = "https://github.com/shiqixixixi/colorfulclouds_weather/issues"
 
 ROOT_PATH = '/colorfulclouds_weather-local'

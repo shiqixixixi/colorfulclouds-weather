@@ -132,7 +132,7 @@ class WeatherCard extends LitElement {
 	
 	if (this._config.entity==="none"){
 
-	  if (this.hass.config.components.indexOf("colorfulclouds") == -1){
+	  if (this.hass.config.components.indexOf("colorfulclouds-weather") == -1){
 		return html`
 		<style>
 		  .not-found {
@@ -145,7 +145,7 @@ class WeatherCard extends LitElement {
 		  <div class="not-found">
 			未安装彩云天气集成: <br/>
 			此卡片需要依赖彩云天气集成，
-			<a href="https://github.com/fineemb/Colorfulclouds-weather">点击前往安装</a>
+			<a href="https://github.com/shiqixixixi/Colorfulclouds-weather">点击前往安装</a>
 		  </div>
 		</ha-card>
 	  `;
@@ -843,7 +843,7 @@ class WeatherCard extends LitElement {
 	`;
   }
 }
-customElements.define("colorfulclouds_weather-card", WeatherCard);
+customElements.define("colorfulclouds-weather-card", WeatherCard);
 
 export class WeatherEditor extends LitElement {
   setConfig(config) {
@@ -993,7 +993,7 @@ export class WeatherEditor extends LitElement {
 customElements.define("colorfulclouds-weather-card-editor", WeatherEditor);
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: "colorfulclouds_weather-card",
+  type: "colorfulclouds-weather-card",
   name: "彩云天气",
   preview: true, // Optional - defaults to false
   description: "彩云天气卡片" // Optional

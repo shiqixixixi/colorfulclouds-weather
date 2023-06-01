@@ -70,7 +70,7 @@ async def async_setup_entry(hass, config_entry) -> bool:
     _LOGGER.debug(f"register_static_path: {ROOT_PATH + ':custom_components/colorfulclouds-weather/local'}")
     hass.components.frontend.add_extra_js_url(hass, ROOT_PATH + '/colorfulclouds-weather-card/colorfulclouds-weather-card.js?ver='+VERSION)
     _LOGGER.debug(f"Add extra JS module: {ROOT_PATH + '/colorfulclouds-weather-card/colorfulclouds-weather-card.js?ver='+VERSION}")
-    hass.components.frontend.add_extra_js_url(hass, ROOT_PATH + '/colorfulclouds-weather-card/colorfulclouds-weather-weather-card-more.js?ver='+VERSION)
+    hass.components.frontend.add_extra_js_url(hass, ROOT_PATH + '/colorfulclouds-weather-card/colorfulclouds-weather-card-more.js?ver='+VERSION)
     _LOGGER.debug(f"Add extra JS module: {ROOT_PATH + '/colorfulclouds-weather-card/colorfulclouds-weather-card-more.js?ver='+VERSION}")
     _LOGGER.info("setup platform weather.colorfulclouds-weather...")
     

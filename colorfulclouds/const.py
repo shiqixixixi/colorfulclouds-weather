@@ -1,7 +1,7 @@
 
 
-"""Constants for colorfulclouds-weather."""
-DOMAIN = "colorfulclouds-weather"
+"""Constants for colorfulclouds."""
+DOMAIN = "colorfulclouds"
 
 PLATFORMS = ["sensor"]
 REQUIRED_FILES = [
@@ -11,10 +11,10 @@ REQUIRED_FILES = [
     "config_flow.py",
     "translations/en.json",
 ]
-VERSION = "2023.06.01"
-ISSUE_URL = "https://github.com/shiqixixixi/colorfulclouds-weather/issues"
+VERSION = "2023.1.22"
+ISSUE_URL = "https://github.com/fineemb/Colorfulclouds-weather/issues"
 
-ROOT_PATH = '/colorfulclouds-weather-local'
+ROOT_PATH = '/colorfulclouds-local'
 
 STARTUP = """
 -------------------------------------------------------------------
@@ -45,14 +45,14 @@ from homeassistant.const import (
     VOLUME_CUBIC_METERS,
 )
 
-ATTRIBUTION = "Data provided by colorfulclouds-weather"
+ATTRIBUTION = "Data provided by Colorfulclouds"
 ATTR_ICON = "icon"
 ATTR_FORECAST = CONF_DAILYSTEPS = "forecast"
 ATTR_LABEL = "label"
 ATTR_UNIT_IMPERIAL = "Imperial"
 ATTR_UNIT_METRIC = "Metric"
-MANUFACTURER = "colorfulclouds-weather, Inc."
-NAME = "colorfulclouds-weather"
+MANUFACTURER = "Colorfulclouds, Inc."
+NAME = "Colorfulclouds"
 
 CONF_API_KEY = "api_key"
 CONF_API_VERSION = "api_version"

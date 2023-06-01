@@ -10,7 +10,7 @@ LastEditTime  : 2020-11-21 20:07:33
 Component to integrate with 彩云天气.
 
 For more details about this component, please refer to
-https://github.com/shiqixixixi/colorfulclouds_weather-weather
+https://github.com/shiqixixixi/colorfulclouds-weather
 """
 import asyncio
 import requests
@@ -49,7 +49,7 @@ _LOGGER = logging.getLogger(__name__)
 
 PLATFORMS = ["sensor", "weather"]
 
-USER_AGENT = 'colorfulclouds_weatherPro/6.4.0 (iPhone; iOS 15.4.1; Scale/3.00)'
+USER_AGENT = 'colorfulclouds-weatherPro/6.4.0 (iPhone; iOS 15.4.1; Scale/3.00)'
 DEVICE_ID= 'D9D380E8-B5DE-40CD-974D-8E36D84187B7'
 headers = {'User-Agent': USER_AGENT,
           'device-id': DEVICE_ID,
@@ -60,21 +60,21 @@ headers = {'User-Agent': USER_AGENT,
 		  'app-name': 'weather'}
           
 async def async_setup(hass: HomeAssistant, config: Config) -> bool:
-    """Set up configured colorfulclouds_weather."""
+    """Set up configured colorfulclouds-weather."""
     hass.data.setdefault(DOMAIN, {})
     return True
 
 async def async_setup_entry(hass, config_entry) -> bool:
     
-    hass.http.register_static_path(ROOT_PATH, hass.config.path('custom_components/colorfulclouds_weather/local'), False)
-    _LOGGER.debug(f"register_static_path: {ROOT_PATH + ':custom_components/colorfulclouds_weather/local'}")
-    hass.components.frontend.add_extra_js_url(hass, ROOT_PATH + '/colorfulclouds_weather-weather-card/colorfulclouds_weather-weather-card.js?ver='+VERSION)
-    _LOGGER.debug(f"Add extra JS module: {ROOT_PATH + '/colorfulclouds_weather-weather-card/colorfulclouds_weather-weather-card.js?ver='+VERSION}")
-    hass.components.frontend.add_extra_js_url(hass, ROOT_PATH + '/colorfulclouds_weather-weather-card/colorfulclouds_weather-weather-card-more.js?ver='+VERSION)
-    _LOGGER.debug(f"Add extra JS module: {ROOT_PATH + '/colorfulclouds_weather-weather-card/colorfulclouds_weather-weather-card-more.js?ver='+VERSION}")
-    _LOGGER.info("setup platform weather.colorfulclouds_weather...")
+    hass.http.register_static_path(ROOT_PATH, hass.config.path('custom_components/colorfulclouds-weather/local'), False)
+    _LOGGER.debug(f"register_static_path: {ROOT_PATH + ':custom_components/colorfulclouds-weather/local'}")
+    hass.components.frontend.add_extra_js_url(hass, ROOT_PATH + '/colorfulclouds-weather-card/colorfulclouds-weather-card.js?ver='+VERSION)
+    _LOGGER.debug(f"Add extra JS module: {ROOT_PATH + '/colorfulclouds-weather-card/colorfulclouds-weather-card.js?ver='+VERSION}")
+    hass.components.frontend.add_extra_js_url(hass, ROOT_PATH + '/colorfulclouds-weather-card/colorfulclouds-weather-weather-card-more.js?ver='+VERSION)
+    _LOGGER.debug(f"Add extra JS module: {ROOT_PATH + '/colorfulclouds-weather-card/colorfulclouds-weather-card-more.js?ver='+VERSION}")
+    _LOGGER.info("setup platform weather.colorfulclouds-weather...")
     
-    """Set up colorfulclouds_weather as config entry."""
+    """Set up colorfulclouds-weather as config entry."""
     api_key = config_entry.data[CONF_API_KEY]
     location_key = config_entry.unique_id
     longitude = config_entry.data[CONF_LONGITUDE]
@@ -137,7 +137,7 @@ async def update_listener(hass, config_entry):
 
 
 class colorfulclouds_weatherDataUpdateCoordinator(DataUpdateCoordinator):
-    """Class to manage fetching colorfulclouds_weather data API."""
+    """Class to manage fetching colorfulclouds-weather data API."""
 
     def __init__(self, hass, session, api_key, api_version, location_key, longitude, latitude, dailysteps: int, hourlysteps: int, alert: bool, life: bool, starttime: int):
         """Initialize."""

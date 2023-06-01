@@ -4,7 +4,7 @@
         "step": {
             "user": {
                 "title": "彩云天气",
-                "description": "如果您需要配置方面的帮助，请查看此处: https://github.com/shiqixixixi/colorfulclouds_weather",
+                "description": "如果您需要配置方面的帮助，请查看此处: https://github.com/shiqixixixi/colorfulclouds-weather",
                 "data": {
                     "api_key": "彩云API Key",
                     "api_version": "API版本,默认是v2.6",

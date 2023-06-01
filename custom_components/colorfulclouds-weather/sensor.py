@@ -1,4 +1,4 @@
-"""Support for the colorfulclouds_weather service."""
+"""Support for the colorfulclouds-weather service."""
 import logging
 
 from homeassistant.const import (
@@ -30,7 +30,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
-    """Add colorfulclouds_weather entities from a config_entry."""
+    """Add colorfulclouds-weather entities from a config_entry."""
     name = config_entry.data[CONF_NAME]
 
     coordinator = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
@@ -53,7 +53,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
 
 
 class colorfulclouds_weatherSensor(Entity):
-    """Define an colorfulclouds_weather entity."""
+    """Define an colorfulclouds-weather entity."""
 
     def __init__(self, name, kind, coordinator, forecast_day=None):
         """Initialize."""
@@ -210,5 +210,5 @@ class colorfulclouds_weatherSensor(Entity):
         )
 
     async def async_update(self):
-        """Update colorfulclouds_weather entity."""
+        """Update colorfulclouds-weather entity."""
         await self.coordinator.async_request_refresh()

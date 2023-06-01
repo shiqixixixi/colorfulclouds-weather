@@ -4,7 +4,7 @@
         "step": {
             "user": {
                 "title": "Colorfulclouds Weather",
-                "description": "If you need help with the configuration have a look here: https://github.com/fineemb/Colorfulclouds-weather",
+                "description": "If you need help with the configuration have a look here: https://github.com/shiqixixixi/colorfulclouds-weather",
                 "data": {
                     "api_key": "API Key",
                     "api_version": "API version, default: v2.6",

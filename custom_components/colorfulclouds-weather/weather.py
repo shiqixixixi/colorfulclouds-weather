@@ -108,7 +108,7 @@ TRANSLATE_SUGGESTION = {
 ATTR_SUGGESTION = "suggestion"
 
 async def async_setup_entry(hass, config_entry, async_add_entities):    
-    """Add a colorfulclouds_weather weather entity from a config_entry."""
+    """Add a colorfulclouds-weather weather entity from a config_entry."""
     name = config_entry.data[CONF_NAME]
     life = config_entry.options.get(CONF_LIFEINDEX, False)
 
@@ -332,7 +332,7 @@ class colorfulclouds_weatherEntity(WeatherEntity):
         
         if self.life == True:
             data[ATTR_SUGGESTION] = [{'title': k, 'title_cn': TRANSLATE_SUGGESTION.get(k,k), 'brf': v.get('desc'), 'txt': v.get('detail')} for k, v in self.coordinator.data['lifeindex'].items()]
-            data["custom_ui_more_info"] = "colorfulclouds_weather-weather-more-info"        
+            data["custom_ui_more_info"] = "colorfulclouds-weather-more-info"        
         return data  
 
     @property
@@ -361,6 +361,6 @@ class colorfulclouds_weatherEntity(WeatherEntity):
         )
 
     async def async_update(self):
-        """Update colorfulclouds_weather entity."""
+        """Update colorfulclouds-weather entity."""
         await self.coordinator.async_request_refresh()
         

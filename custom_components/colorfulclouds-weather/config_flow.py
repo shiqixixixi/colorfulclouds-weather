@@ -27,8 +27,8 @@ class colorfulclouds_weatherlowHandler(config_entries.ConfigFlow, domain=DOMAIN)
     @callback
     def async_get_options_flow(config_entry):
         """Get the options flow for this handler."""
-        return colorfulclouds_weatherlowHandler(config_entry)
-        #return colorfulclouds_weatherOptionsFlow(config_entry)
+        #return colorfulclouds_weatherlowHandler(config_entry)
+        return colorfulclouds_weatherOptionsFlow(config_entry)
     def __init__(self):
         """Initialize."""
         self._errors = {}
@@ -94,7 +94,7 @@ class colorfulclouds_weatherlowHandler(config_entries.ConfigFlow, domain=DOMAIN)
             if host == entry.data.get(CONF_NAME):
                 return True
 
-class colorfulclouds-weatherOptionsFlow(config_entries.OptionsFlow):
+class colorfulclouds_weatherOptionsFlow(config_entries.OptionsFlow):
     """Config flow options for colorfulclouds-weather."""
 
     def __init__(self, config_entry):

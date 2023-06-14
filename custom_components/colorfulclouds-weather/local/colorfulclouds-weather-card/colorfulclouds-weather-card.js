@@ -106,7 +106,7 @@ class WeatherCard extends LitElement {
 	return {entity: 'weather.wo_de_jia',
 			houer_forecast: true,
 			show_forecast: true,
-			icon: '/colorfulclouds-local/colorfulclouds-weather-card/weathericons/'
+			icon: '/colorfulclouds-weather-local/colorfulclouds-weather-card/weathericons/'
 			};
   }
 
@@ -205,7 +205,7 @@ class WeatherCard extends LitElement {
 	  this._last_updated = last_updated;
 	}
 
-	const iconUrl = this._config.icon || '/colorfulclouds-local/colorfulclouds-weather-card/weathericons/';
+	const iconUrl = this._config.icon || '/colorfulclouds-weather-local/colorfulclouds-weather-card/weathericons/';
 	const lang = this.hass.selectedLanguage || this.hass.language;
 	const next_rising = new Date(this.hass.states["sun.sun"].attributes.next_rising);
 	const next_setting = new Date(this.hass.states["sun.sun"].attributes.next_setting);  

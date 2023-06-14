@@ -199,6 +199,7 @@ class ColorfulcloudsSensor(Entity):
             #self._attrs["nearest_distance"] = self.coordinator.data["result"]["realtime"]["precipitation"]["nearest"]["distance"]
         #return self._attrs
         #原来的 
+        
             self._attrs["datasource"] = self.coordinator.data["result"]["realtime"]["precipitation"]["local"]["datasource"]
             #self._attrs["nearest_intensity"] = self.coordinator.data["result"]["realtime"]["precipitation"]["nearest"]["intensity"]
             #self._attrs["nearest_distance"] = self.coordinator.data["result"]["realtime"]["precipitation"]["nearest"]["distance"]

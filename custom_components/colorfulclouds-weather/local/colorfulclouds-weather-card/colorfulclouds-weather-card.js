@@ -969,9 +969,7 @@ export class WeatherEditor extends LitElement {
 		return;
 	}
 	let configValue = target.configValue
-	let newConfig = {
-		...this.config
-	};
+	let newConfig = this.config
 		newConfig[configValue] = (configValue === "entity"||
 								  configValue === "icon"||
 								  configValue === "name"||

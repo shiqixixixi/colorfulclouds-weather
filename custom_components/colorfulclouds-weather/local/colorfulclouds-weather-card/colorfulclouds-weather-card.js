@@ -1,4 +1,4 @@
-console.info("%c  WEATHER CARD  \n%c  Version 2022.7.12 ",
+console.info("%c  WEATHER CARD  \n%c  Version 2023.06.01 ",
 "color: orange; font-weight: bold; background: black", 
 "color: white; font-weight: bold; background: dimgray");
 
@@ -178,7 +178,7 @@ class WeatherCard extends LitElement {
 	  `;
 	}
 
-	const last_updated = new Date(stateObj.last_updated).getTime();
+	const last_updated = new Date(stateObj.last_updated).getTime();
 	const showdata = this.showTarget
 	const attributes = stateObj.attributes
 

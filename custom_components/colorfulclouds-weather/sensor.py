@@ -196,9 +196,21 @@ class colorfulclouds_weatherSensor(Entity):
         elif self.kind == "comfort":
             self._attrs["desc"] = self.coordinator.data["result"]["realtime"]["life_index"]["comfort"]["desc"]
         elif self.kind == "precipitation":
+        #原来的    
+            #self._attrs["datasource"] = self.coordinator.data["result"]["realtime"]["precipitation"]["local"]["datasource"]
+            #self._attrs["nearest_intensity"] = self.coordinator.data["result"]["realtime"]["precipitation"]["nearest"]["intensity"]
+            #self._attrs["nearest_distance"] = self.coordinator.data["result"]["realtime"]["precipitation"]["nearest"]["distance"]
+        #return self._attrs
+        #原来的 
             self._attrs["datasource"] = self.coordinator.data["result"]["realtime"]["precipitation"]["local"]["datasource"]
-            self._attrs["nearest_intensity"] = self.coordinator.data["result"]["realtime"]["precipitation"]["nearest"]["intensity"]
-            self._attrs["nearest_distance"] = self.coordinator.data["result"]["realtime"]["precipitation"]["nearest"]["distance"]
+            #self._attrs["nearest_intensity"] = self.coordinator.data["result"]["realtime"]["precipitation"]["nearest"]["intensity"]
+            #self._attrs["nearest_distance"] = self.coordinator.data["result"]["realtime"]["precipitation"]["nearest"]["distance"]
+            if "nearest" in str(self.coordinator.data["result"]["realtime"]["precipitation"]):
+                self._attrs["nearest_intensity"] = self.coordinator.data["result"]["realtime"]["precipitation"]["nearest"]["intensity"]
+                self._attrs["nearest_distance"] = self.coordinator.data["result"]["realtime"]["precipitation"]["nearest"]["distance"]
+            else:
+                self._attrs["nearest_intensity"] = self.coordinator.data["result"]["realtime"]["precipitation"]["local"]["intensity"]
+                self._attrs["nearest_distance"] = self.coordinator.data["result"]["realtime"]["precipitation"]["local"]["datasource"]
         return self._attrs
 
     @property

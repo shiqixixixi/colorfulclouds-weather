@@ -43,6 +43,8 @@ from homeassistant.const import (
     DEGREE,
     UV_INDEX,
     VOLUME_CUBIC_METERS,
+    DEVICE_CLASS_PM25,
+    CONCENTRATION_PARTS_PER_MILLION
 )
 
 ATTRIBUTION = "Data provided by colorfulclouds-weather"
@@ -160,6 +162,13 @@ SENSOR_TYPES = {
         ATTR_UNIT_METRIC: None,
         ATTR_UNIT_IMPERIAL: None,
     },
+    "pm25": {
+        ATTR_DEVICE_CLASS:
+        DEVICE_CLASS_PM25,
+        ATTR_ICON: "mdi:lungs",
+        ATTR_LABEL: "PM 2.5", 
+        ATTR_UNIT_METRIC: CONCENTRATION_PARTS_PER_MILLION, 
+        ATTR_UNIT_IMPERIAL: CONCENTRATION_PARTS_PER_MILLION,
 }
 
 

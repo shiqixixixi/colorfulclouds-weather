@@ -145,6 +145,8 @@ class colorfulclouds_weatherSensor(Entity):
             return self.coordinator.data["result"]["realtime"]["wind"]["speed"]
         if self.kind == "WindDirection":
             return self.coordinator.data["result"]["realtime"]["wind"]["direction"]
+        if self.kind == "pm25":
+            return self.coordinator.data["result"]["realtime"]["air_quality"]["pm25"] 
         if self.kind == "comfort":
             return self.coordinator.data["result"]["realtime"]["life_index"]["comfort"]["index"]
         if self.kind == "ultraviolet":
@@ -154,6 +156,7 @@ class colorfulclouds_weatherSensor(Entity):
         if self.kind == "update_time":
             return datetime.fromtimestamp(self.coordinator.data["server_time"]) 
 
+ 
     @property
     def icon(self):
         """Return the icon."""

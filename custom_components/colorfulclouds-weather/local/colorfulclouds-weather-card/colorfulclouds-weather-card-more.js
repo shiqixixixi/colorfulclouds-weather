@@ -92,12 +92,12 @@ const locale = {
 // 延时加载，解决每次界面显示不了的问题
 ; (() => {
   const timer = setInterval(() => {
-    if (Polymer.Element) {
+    if (litElement) { //Polymer
       clearInterval(timer);
-
-      class MoreInfoWeather extends Polymer.Element {
+      class MoreInfoWeather extends litElement {
         static get template() {
           return Polymer.html`
+
       <style>
         ha-icon {
           color: var(--paper-item-icon-color);

@@ -1,3 +1,8 @@
+import {
+  LitElement,
+  html,
+  css
+  } from "./lit";
 const locale = {
   'zh-Hans': {
     tempHi: "最高温度",
@@ -94,9 +99,10 @@ const locale = {
   const timer = setInterval(() => {
     if (litElement) { //Polymer
       clearInterval(timer);
+      //class SimpleGreeting extends LitElement {
       class MoreInfoWeather extends litElement {
         static get template() {
-          return Polymer.html`
+          return lit.html`
 
       <style>
         ha-icon {

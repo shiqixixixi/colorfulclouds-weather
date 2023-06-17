@@ -98,7 +98,7 @@ class WeatherCard extends LitElement {
   }
 
   static getConfigElement() {
-	return document.createElement("colorfulclouds-weather-card-editor");
+	return document.createElement("colorfulclouds_weather-card-editor");
   }
   
   // 自定义默认配置
@@ -843,7 +843,7 @@ class WeatherCard extends LitElement {
 	`;
   }
 }
-customElements.define("colorfulclouds-weather-card", WeatherCard);
+customElements.define("colorfulclouds_weather-card", WeatherCard);
 
 export class WeatherEditor extends LitElement {
   setConfig(config) {
@@ -988,10 +988,10 @@ export class WeatherEditor extends LitElement {
   }  
 }
 
-customElements.define("colorfulclouds-weather-card-editor", WeatherEditor);
+customElements.define("colorfulclouds_weather-card-editor", WeatherEditor);
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: "colorfulclouds-weather-card",
+  type: "colorfulclouds_weather-card",
   name: "彩云天气",
   preview: true, // Optional - defaults to false
   description: "彩云天气卡片" // Optional

@@ -2,7 +2,7 @@ import {
   LitElement,
   html,
   css
-  } from "./lit";
+  } from "https://unpkg.com/lit-element@2.0.1/lit-element.js?module";
 const locale = {
   'zh-Hans': {
     tempHi: "最高温度",
@@ -76,8 +76,8 @@ const locale = {
     uSpeed: "м/c",
     uPrecip: "мм",
     cardinalDirections: [
-      'C', 'C-CB', 'CB', 'B-CB', 'B', 'B-ЮВ', 'ЮВ', 'Ю-ЮВ',
-      'Ю', 'Ю-ЮЗ', 'ЮЗ', '3-ЮЗ', '3', '3-C3', 'C3', 'C-C3', 'C'
+      'C', 'C-CN', 'CN', 'B-CN', 'B', 'B-ЮВ', 'ЮВ', 'Ю-ЮВ',
+      'Ю', 'Ю-ЮЗ', 'ЮЗ', '3-ЮЗ', 'B', '3-C3', 'C3', 'C-C3', 'C'
     ]
   },
   sv: {
@@ -97,13 +97,12 @@ const locale = {
 // 延时加载，解决每次界面显示不了的问题
 ; (() => {
   const timer = setInterval(() => {
-    if (litElement) { //Polymer
+    if (LitElement) {
       clearInterval(timer);
-      //class SimpleGreeting extends LitElement {
-      class MoreInfoWeather extends litElement {
-        static get template() {
-          return lit.html`
 
+      class MoreInfoWeather extends LitElement {
+        static get template() {
+          return Lit.html`
       <style>
         ha-icon {
           color: var(--paper-item-icon-color);

@@ -331,7 +331,7 @@ class colorfulclouds_weatherEntity(WeatherEntity):
         data['hourly_pm25'] = self.coordinator.data['result']['hourly']['air_quality']['pm25']
         
         if self.life == True:
-            data[ATTR_SUGGESTION] = [{'title': k, 'title_cn': TRANSLATE_SUGGESTION.get(k,k), 'brf': v.get('desc'), 'txt': v.get('detail')} for k, v in self.coordinator.data['lifeindex'].items()]
+            data[ATTR_SUGGESTION] = [{'title': k, 'title_cn': TRANSLATE_SUGGESTION.get(k,k), 'brf': v.get('desc'), 'txt': v.get('detail') } for k, v in self.coordinator.data['lifeindex'].items()]
             data["custom_ui_more_info"] = "colorfulclouds-weather-more-info"        
         return data  
 

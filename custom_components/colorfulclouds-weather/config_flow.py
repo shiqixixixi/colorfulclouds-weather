@@ -27,7 +27,6 @@ class colorfulclouds_weatherlowHandler(config_entries.ConfigFlow, domain=DOMAIN)
     @callback
     def async_get_options_flow(config_entry):
         """Get the options flow for this handler."""
-        #return colorfulclouds_weatherlowHandler(config_entry)
         return colorfulclouds_weatherOptionsFlow(config_entry)
     def __init__(self):
         """Initialize."""

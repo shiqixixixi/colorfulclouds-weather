@@ -49,13 +49,13 @@ _LOGGER = logging.getLogger(__name__)
 
 PLATFORMS = ["sensor", "weather"]
 
-USER_AGENT = 'colorfulclouds-weatherPro/6.4.0 (iPhone; iOS 15.4.1; Scale/3.00)'
-DEVICE_ID= 'D9D380E8-B5DE-40CD-974D-8E36D84187B7'
+USER_AGENT = 'ColorfulCloudsPro/6.7.2 (iPhone; iOS 16.2; Scale/3.00)'
+DEVICE_ID= 'D9AB80E9-B5CE-40FD-96CD-8E38CF5287B7'
 headers = {'User-Agent': USER_AGENT,
           'device-id': DEVICE_ID,
           'Accept': 'application/json',
           'Accept-Language': 'zh-Hans-CN;q=1',
-		  'app-version': '6.4.0',
+		  'app-version': '6.7.2',
 		  'app_name': 'weather',
 		  'app-name': 'weather'}
           

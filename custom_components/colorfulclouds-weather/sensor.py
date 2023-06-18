@@ -156,7 +156,6 @@ class colorfulclouds_weatherSensor(Entity):
         if self.kind == "update_time":
             return datetime.fromtimestamp(self.coordinator.data["server_time"]) 
 
- 
     @property
     def icon(self):
         """Return the icon."""

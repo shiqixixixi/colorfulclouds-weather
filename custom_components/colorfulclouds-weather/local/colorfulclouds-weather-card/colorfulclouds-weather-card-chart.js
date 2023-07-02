@@ -15442,7 +15442,7 @@
 			  <div class="not-found">
 				未安装彩云天气集成: <br/>
 				此卡片需要依赖彩云天气集成，
-				<a href="https://github.com/fineemb/Colorfulclouds-weather">点击前往安装</a>
+				<a href="https://github.com/shiqixixixi/Colorfulclouds-weather">点击前往安装</a>
 			  </div>
 			</ha-card>
 		  `;
@@ -15473,7 +15473,7 @@
 			</ha-card>
 		  `;
 		}
-	    const iconUrl = config.icon || '/colorfulclouds-local/colorfulclouds-weather-card/weathericons/';
+	    const iconUrl = config.icon || '/colorfulclouds-weather-local/colorfulclouds-weather-card/weathericons/';
 		const lang = _hass.selectedLanguage || _hass.language;
 		const next_rising = new Date(_hass.states["sun.sun"].attributes.next_rising);
 		const next_setting = new Date(_hass.states["sun.sun"].attributes.next_setting);  
@@ -15780,7 +15780,7 @@
       </div>
 	  <div class="now">
 		<div class="main">
-		  <i class="icon bigger" style="background: none, url(${config.icon || '/colorfulclouds-local/colorfulclouds-weather-card/weathericons/'}${weather.attributes.skycon}.svg) no-repeat; background-size: contain; cursor: pointer;" @click="${(e) => this.showMoreInfo(config.entity)}"></i>
+		  <i class="icon bigger" style="background: none, url(${config.icon || '/colorfulclouds-weather-local/colorfulclouds-weather-card/weathericons/'}${weather.attributes.skycon}.svg) no-repeat; background-size: contain; cursor: pointer;" @click="${(e) => this.showMoreInfo(config.entity)}"></i>
 		  ${this._showValue(temperature) ? p`
 			<div style="cursor: pointer;" @click="${(e) => this.showMoreInfo(config.entity)}">${this.roundNumber(temperature)}<sup>${this.getUnit('temperature')}</sup></div>
 		  ` : p`

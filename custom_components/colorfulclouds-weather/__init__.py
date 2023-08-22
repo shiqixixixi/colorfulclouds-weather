@@ -90,9 +90,11 @@ async def async_setup_entry(hass, config_entry) -> bool:
     life = config_entry.options.get(CONF_LIFEINDEX, False)
     starttime = config_entry.options.get(CONF_STARTTIME, 0)
     
-    update_interval_minutes = config_entry.options.get(CONF_UPDATE_INTERVAL, 10
-                                                       )
-    _LOGGER.debug("Using location_key: %s, get forecast: %s", location_key, api_version)
+    update_interval_minutes = config_entry.options.get(CONF_UPDATE_INTERVAL, 10)                                                  
+    _vol.Optional(
+                        CONF_UPDATE_INTERVAL,
+                        default=self.config_entry.options.get(CONF_UPDATE_INTERVAL, 10),
+                    ): vol.All(vol.Coerce(int), vol.Range(min=5, max=1440)),LOGGER.debug("Using location_key: %s, get forecast: %s", location_key, api_version)
 
     websession = async_get_clientsession(hass)
 

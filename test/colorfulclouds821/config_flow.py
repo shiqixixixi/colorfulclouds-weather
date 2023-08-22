@@ -1,5 +1,5 @@
 
-"""Adds config flow for colorfulclouds-weather."""
+"""Adds config flow for Colorfulclouds."""
 import logging
 import requests
 import json
@@ -23,12 +23,12 @@ import voluptuous as vol
 _LOGGER = logging.getLogger(__name__)
 
 @config_entries.HANDLERS.register(DOMAIN)
-class colorfulclouds_weatherlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+class ColorfulcloudslowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     @staticmethod
     @callback
     def async_get_options_flow(config_entry):
         """Get the options flow for this handler."""
-        return colorfulclouds_weatherOptionsFlow(config_entry)
+        return ColorfulcloudsOptionsFlow(config_entry)
 
     def __init__(self):
         """Initialize."""
@@ -70,7 +70,7 @@ class colorfulclouds_weatherlowHandler(config_entries.ConfigFlow, domain=DOMAIN)
         # Defaults
         api_version = "v2.6"
         data_schema = OrderedDict()
-        #data_schema[vol.Optional(CONF_API_KEY, default="UR8ASaXXXXXXXX")] = str
+        #data_schema[vol.Required(CONF_API_KEY)] = str
         data_schema[vol.Optional(CONF_API_KEY, default="")] = str
         data_schema[vol.Optional("api_version", default=api_version)] = str
         data_schema[vol.Optional(CONF_LONGITUDE, default=self.hass.config.longitude)] = cv.longitude
@@ -96,11 +96,11 @@ class colorfulclouds_weatherlowHandler(config_entries.ConfigFlow, domain=DOMAIN)
             if host == entry.data.get(CONF_NAME):
                 return True
 
-class colorfulclouds_weatherOptionsFlow(config_entries.OptionsFlow):
-    """Config flow options for colorfulclouds-weather."""
+class ColorfulcloudsOptionsFlow(config_entries.OptionsFlow):
+    """Config flow options for Colorfulclouds."""
 
     def __init__(self, config_entry):
-        """Initialize colorfulclouds-weather options flow."""
+        """Initialize Colorfulclouds options flow."""
         self.config_entry = config_entry
 
     async def async_step_init(self, user_input=None):

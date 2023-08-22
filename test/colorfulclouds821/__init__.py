@@ -1,16 +1,16 @@
 '''
-Author        : shiqixixixi
-Github        : https://github.com/shiqixixixi
+Author        : fineemb
+Github        : https://github.com/fineemb
 Description   : 
 Date          : 2020-06-07 16:40:38
-LastEditors   : dscao,fineemb,shiqixixixi
+LastEditors   : fineemb,dscao
 LastEditTime  : 2020-11-21 20:07:33
 '''
 """
 Component to integrate with 彩云天气.
 
 For more details about this component, please refer to
-https://github.com/shiqixixixi/colorfulclouds-weather
+https://github.com/fineemb/Colorfulclouds-weather
 """
 import asyncio
 import requests
@@ -61,23 +61,21 @@ headers = {'User-Agent': USER_AGENT,
 		  'app-name': 'weather'}
           
 async def async_setup(hass: HomeAssistant, config: Config) -> bool:
-    """Set up configured colorfulclouds-weather."""
+    """Set up configured Colorfulclouds."""
     hass.data.setdefault(DOMAIN, {})
     return True
 
 async def async_setup_entry(hass, config_entry) -> bool:
     
-    hass.http.register_static_path(ROOT_PATH, hass.config.path('custom_components/colorfulclouds-weather/local'), False)
-    _LOGGER.debug(f"register_static_path: {ROOT_PATH + ':custom_components/colorfulclouds-weather/local'}")
+    hass.http.register_static_path(ROOT_PATH, hass.config.path('custom_components/colorfulclouds/local'), False)
+    _LOGGER.debug(f"register_static_path: {ROOT_PATH + ':custom_components/colorfulclouds/local'}")
     hass.components.frontend.add_extra_js_url(hass, ROOT_PATH + '/colorfulclouds-weather-card/colorfulclouds-weather-card.js?ver='+VERSION)
-    _LOGGER.debug(f"Add extra JS module: {ROOT_PATH + '/colorfulclouds-weather-card/colorfulclouds-weather-card.js?ver='+VERSION}")
     hass.components.frontend.add_extra_js_url(hass, ROOT_PATH + '/colorfulclouds-weather-card/colorfulclouds-weather-card-chart.js?ver='+VERSION)
-    _LOGGER.debug(f"Add extra JS module: {ROOT_PATH + '/colorfulclouds-weather-card/colorfulclouds-weather-card-chart.js?ver='+VERSION}")
     hass.components.frontend.add_extra_js_url(hass, ROOT_PATH + '/colorfulclouds-weather-card/colorfulclouds-weather-card-more.js?ver='+VERSION)
-    _LOGGER.debug(f"Add extra JS module: {ROOT_PATH + '/colorfulclouds-weather-card/colorfulclouds-weather-card-more.js?ver='+VERSION}")
-    _LOGGER.info("setup platform weather.colorfulclouds-weather...")
     
-    """Set up colorfulclouds-weather as config entry."""
+    _LOGGER.info("setup platform weather.colorfulclouds...")
+    
+    """Set up Colorfulclouds as config entry."""
     api_key = config_entry.data[CONF_API_KEY]
     location_key = config_entry.unique_id
     longitude = config_entry.data[CONF_LONGITUDE]
@@ -89,13 +87,13 @@ async def async_setup_entry(hass, config_entry) -> bool:
     alert = config_entry.options.get(CONF_ALERT, True)
     life = config_entry.options.get(CONF_LIFEINDEX, False)
     starttime = config_entry.options.get(CONF_STARTTIME, 0)
-    update_interval_minutes = config_entry.options.get(CONF_UPDATE_INTERVAL, 10)                                                
+    update_interval_minutes = config_entry.options.get(CONF_UPDATE_INTERVAL, 10)
 
     _LOGGER.debug("Using location_key: %s, get forecast: %s", location_key, api_version)
 
     websession = async_get_clientsession(hass)
 
-    coordinator = colorfulclouds_weatherDataUpdateCoordinator(
+    coordinator = ColorfulcloudsDataUpdateCoordinator(
         hass, websession, api_key, api_version, location_key, longitude, latitude, dailysteps, hourlysteps, alert, life, starttime, update_interval_minutes
     )
     await coordinator.async_refresh()
@@ -141,8 +139,8 @@ async def update_listener(hass, config_entry):
     await hass.config_entries.async_reload(config_entry.entry_id)
 
 
-class colorfulclouds_weatherDataUpdateCoordinator(DataUpdateCoordinator):
-    """Class to manage fetching colorfulclouds-weather data API."""
+class ColorfulcloudsDataUpdateCoordinator(DataUpdateCoordinator):
+    """Class to manage fetching Colorfulclouds data API."""
 
     def __init__(self, hass, session, api_key, api_version, location_key, longitude, latitude, dailysteps: int, hourlysteps: int, alert: bool, life: bool, starttime: int, update_interval_minutes: int):
         """Initialize."""

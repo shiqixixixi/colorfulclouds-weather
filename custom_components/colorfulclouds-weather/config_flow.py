@@ -115,6 +115,10 @@ class colorfulclouds_weatherOptionsFlow(config_entries.OptionsFlow):
             step_id="user",
             data_schema=vol.Schema(
                 {
+                vol.Optional(
+                        CONF_UPDATE_INTERVAL,
+                        default=self.config_entry.options.get(CONF_UPDATE_INTERVAL, 10),
+                    ): vol.All(vol.Coerce(int), vol.Range(min=5, max=1440)),
                     vol.Optional(
                         CONF_DAILYSTEPS,
                         default=self.config_entry.options.get(CONF_DAILYSTEPS, 5),

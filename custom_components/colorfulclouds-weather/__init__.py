@@ -92,7 +92,7 @@ async def async_setup_entry(hass, config_entry) -> bool:
     update_interval_minutes = config_entry.options.get(CONF_UPDATE_INTERVAL, 10)                                                  
 
     _LOGGER.debug("Using location_key: %s, get forecast: %s", location_key, api_version)
-    
+
     websession = async_get_clientsession(hass)
 
     coordinator = colorfulclouds_weatherDataUpdateCoordinator(
@@ -135,11 +135,9 @@ async def async_unload_entry(hass, config_entry):
 
     return unload_ok
 
-
 async def update_listener(hass, config_entry):
     """Update listener."""
     await hass.config_entries.async_reload(config_entry.entry_id)
-
 
 class colorfulclouds_weatherDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching colorfulclouds-weather data API."""
@@ -167,7 +165,7 @@ class colorfulclouds_weatherDataUpdateCoordinator(DataUpdateCoordinator):
 
         update_interval = (
             #datetime.timedelta(minutes=2 if str(self.api_key)[0:6] == "UR8ASa" else 6)
-            datetime.timedelta(minutes=2 if str(self.api_key)[0:6] == "UR8ASa" else self.update_interval_minutes)
+            datetime.timedelta(minutes = self.update_interval_minutes)
         )
         _LOGGER.debug("Data will be update every %s", update_interval)
 

@@ -15,7 +15,8 @@ from .const import (
     CONF_DAILYSTEPS,
     CONF_ALERT,
     CONF_LIFEINDEX,
-    CONF_STARTTIME
+    CONF_STARTTIME,
+    CONF_UPDATE_INTERVAL,
     )
 import voluptuous as vol
 
@@ -68,7 +69,8 @@ class colorfulclouds_weatherlowHandler(config_entries.ConfigFlow, domain=DOMAIN)
         # Defaults
         api_version = "v2.6"
         data_schema = OrderedDict()
-        data_schema[vol.Optional(CONF_API_KEY, default="UR8ASaXXXXXXXX")] = str
+        #data_schema[vol.Optional(CONF_API_KEY, default="UR8ASaXXXXXXXX")] = str
+        data_schema[vol.Optional(CONF_API_KEY, default="")] = str
         data_schema[vol.Optional("api_version", default=api_version)] = str
         data_schema[vol.Optional(CONF_LONGITUDE, default=self.hass.config.longitude)] = cv.longitude
         data_schema[vol.Optional(CONF_LATITUDE, default=self.hass.config.latitude)] = cv.latitude

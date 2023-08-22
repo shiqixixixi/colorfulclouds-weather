@@ -65,6 +65,7 @@ CONF_LIFEINDEX = "life"
 CONF_HOURLYSTEPS = "hourlysteps"
 CONF_DAILYSTEPS = "dailysteps"
 CONF_STARTTIME = "starttime"
+CONF_UPDATE_INTERVAL = ""
 
 COORDINATOR = "coordinator"
 

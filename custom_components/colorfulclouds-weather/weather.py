@@ -68,6 +68,39 @@ CONDITION_MAP = {
     'RAIN': 'rainy',
     'SNOW': 'snowy',
 }
+CONDITION_CN_MAP = {
+    'CLEAR_DAY': '晴',
+    'CLEAR_NIGHT': '晴',
+    'PARTLY_CLOUDY_DAY': '多云',
+    'PARTLY_CLOUDY_NIGHT':'多云',
+    'CLOUDY': '阴',
+    'LIGHT_HAZE': '轻雾',
+    'MODERATE_HAZE': '中雾',
+    'HEAVY_HAZE': '大雾',
+    'LIGHT_RAIN': '小雨',
+    'MODERATE_RAIN': '中雨',
+    'HEAVY_RAIN': '大雨',
+    'STORM_RAIN': '暴雨',
+    'FOG': '雾',
+    'LIGHT_SNOW': '小雪',
+    'MODERATE_SNOW': '中雪',
+    'HEAVY_SNOW': '大雪',
+    'STORM_SNOW': '暴雪',
+    'DUST': '浮尘',
+    'SAND': '沙尘',
+    'THUNDER_SHOWER': '雷阵雨',
+    'HAIL': '冰雹',
+    'SLEET': '雨夹雪',
+    'WIND': '大风',
+    'HAZE': '雾霾',
+    'RAIN': '雨',
+    'SNOW': '雪',
+}
+
+WINDDIRECTIONS =[
+    '北', '北-东北', '东北', '东-东北', '东', '东-东南', '东南', '南-东南',
+    '南', '南-西南', '西南', '西-西南', '西', '西-西北', '西北', '北-西北', '北'
+]
 
 TRANSLATE_SUGGESTION = {
     'AnglingIndex': '钓鱼指数',
@@ -353,6 +386,181 @@ class colorfulclouds_weatherEntity(WeatherEntity):
             forecast_data.append(data_dict)
 
         return forecast_data
+    
+    def hourly_forecast(self):
+        
+        hourly_data = {}
+        hourly_data['hourly_precipitation'] = self.coordinator.data['result']['hourly']['precipitation']
+        hourly_data['hourly_temperature'] = self.coordinator.data['result']['hourly']['temperature']
+        hourly_data['hourly_apparent_temperature'] = self.coordinator.data['result']['hourly']['apparent_temperature']
+        hourly_data['hourly_humidity'] = self.coordinator.data['result']['hourly']['humidity']
+        hourly_data['hourly_cloudrate'] = self.coordinator.data['result']['hourly']['cloudrate']
+        hourly_data['hourly_skycon'] = self.coordinator.data['result']['hourly']['skycon']
+        hourly_data['hourly_wind'] = self.coordinator.data['result']['hourly']['wind']
+        hourly_data['hourly_visibility'] = self.coordinator.data['result']['hourly']['visibility']
+        hourly_data['hourly_aqi'] = self.coordinator.data['result']['hourly']['air_quality']['aqi']
+        hourly_data['hourly_pm25'] = self.coordinator.data['result']['hourly']['air_quality']['pm25']        
+
+        if hourly_data['hourly_precipitation']:
+            summarystr = ""
+            summarymaxprecipstr = ""
+            summaryendstr = ""
+            summaryday = ""
+            summarystart = 0
+            summaryend = 0
+            summaryprecip = 0
+            
+            hourly_forecast_data = []
+            for i in range(len(hourly_data['hourly_precipitation'])):
+                _LOGGER.debug("datetime: %s", hourly_data['hourly_precipitation'][i].get("datetime"))
+                date_obj = datetime.fromisoformat(hourly_data['hourly_precipitation'][i].get("datetime").replace('Z', '+00:00'))
+                formatted_date = datetime.strftime(date_obj, '%Y-%m-%d %H:%M')
+                if hourly_data['hourly_precipitation'][i].get("probability"):
+                    pop = str(round(hourly_data['hourly_precipitation'][i].get("probability")))
+                else:
+                    pop = 0
+                    
+                hourly_forecastItem = {
+                    'skycon': hourly_data['hourly_skycon'][i]['value'],
+                    ATTR_FORECAST_NATIVE_TEMP: round(hourly_data['hourly_temperature'][i]['value']),
+                    'humidity': round(hourly_data['hourly_humidity'][i]['value'],2),
+                    'cloudrate': hourly_data['hourly_cloudrate'][i]['value'],
+                    ATTR_FORECAST_NATIVE_WIND_SPEED: hourly_data['hourly_wind'][i]['speed'],
+                    ATTR_FORECAST_WIND_BEARING: hourly_data['hourly_wind'][i]['direction'],
+                    'visibility': hourly_data['hourly_visibility'][i]['value'],
+                    'aqi': hourly_data['hourly_aqi'][i]['value'],
+                    'pm25': hourly_data['hourly_pm25'][i]['value'],
+                    'datetime': hourly_data['hourly_precipitation'][i]['datetime'][:16].replace('T', ' '),
+                    ATTR_FORECAST_NATIVE_PRECIPITATION: hourly_data['hourly_precipitation'][i]['value'],
+                    'probable_precipitation': pop,
+                    'condition': CONDITION_MAP[hourly_data['hourly_skycon'][i]['value']],
+                    'condition_cn': CONDITION_CN_MAP[hourly_data['hourly_skycon'][i]['value']],
+                    "winddir": self.getWindDir(hourly_data['hourly_wind'][i]['direction']),
+                    "windscale": self.getWindLevel(hourly_data['hourly_wind'][i]['speed'])                    
+                }
+                hourly_forecast_data.append(hourly_forecastItem)    
+                            
+                if float(hourly_data['hourly_precipitation'][i]['value'])>0.1 and summarystart > 0:
+                    if summarystart < 4:
+                        summarystr = str(summarystart)+"小时后转"+ CONDITION_CN_MAP[hourly_data['hourly_skycon'][i]['value']] +"。"
+                    else:
+                        if int(datetime.strftime(date_obj, '%H')) > int(datetime.now().strftime("%H")):
+                            summaryday = "今天"
+                        else:
+                            summaryday = "明天"
+                        summarystr = summaryday + str(int(datetime.strftime(date_obj, '%H')))+"点后转"+ CONDITION_CN_MAP[hourly_data['hourly_skycon'][i]['value']] +"。"
+                    summarystart = -1000
+                    summaryprecip = float(hourly_data['hourly_precipitation'][i]['value'])
+                if float(hourly_data['hourly_precipitation'][i]['value'])>0.1 and float(hourly_data['hourly_precipitation'][i]['value']) > summaryprecip:
+                    if int(datetime.strftime(date_obj, '%H')) > int(datetime.now().strftime("%H")):
+                        summaryday = "今天"
+                    else:
+                        summaryday = "明天"
+                    probablestr = ""
+                    summarymaxprecipstr = summaryday + str(int(datetime.strftime(date_obj, '%H')))+"点为"+CONDITION_CN_MAP[hourly_data['hourly_skycon'][i]['value']] + "！"
+                    summaryprecip = float(hourly_data['hourly_precipitation'][i]['value'])
+                    summaryend ==0
+                    summaryendstr = ""
+                # _LOGGER.debug("hourly precip：%s", hourly_data['hourly_precipitation'][i]['value'])
+                if float(hourly_data['hourly_precipitation'][i]['value']) == 0 and summaryprecip>0 and summaryend ==0:
+                    if int(datetime.strftime(date_obj, '%H')) > int(datetime.now().strftime("%H")):
+                        summaryday = "今天"
+                    else:
+                        summaryday = "明天"
+                    summaryendstr = summaryday + str(int(datetime.strftime(date_obj, '%H')))+"点后转"+CONDITION_CN_MAP[hourly_data['hourly_skycon'][i]['value']]+"。"
+                    summaryend += 1
+                summarystart += 1
+            if summarystr:
+                hourly_summary = summarystr + summarymaxprecipstr + summaryendstr
+            else:
+                hourly_summary = "未来24小时内无降水"
+                
+            self.hourly_summary = hourly_summary    
+            
+            return hourly_forecast_data
+
+    
+    def getWindDir(self, deg):
+        #_LOGGER.debug(int((deg + 11.25) / 22.5))
+        return WINDDIRECTIONS[int((deg + 11.25) / 22.5)]
+
+    
+    def getWindLevel(self, res):
+        res2, res3, res4 = None, None, None
+        if float(res) < 1:
+            res2 = "0"
+            res3 = "无风"
+            res4 = "静，烟直上"
+        elif float(res) < 6:
+            res2 = "1"
+            res3 = "软风"
+            res4 = "烟示风向"
+        elif float(res) < 12:
+            res2 = "2"
+            res3 = "轻风"
+            res4 = "感觉有风"
+        elif float(res) < 20:
+            res2 = "3"
+            res3 = "微风"
+            res4 = "旌旗展开"
+        elif float(res) < 29:
+            res2 = "4"
+            res3 = "和风"
+            res4 = "吹起尘土"
+        elif float(res) < 39:
+            res2 = "5"
+            res3 = "清风"
+            res4 = "小树摇摆"
+        elif float(res) < 50:
+            res2 = "6"
+            res3 = "强风"
+            res4 = "电线有声"
+        elif float(res) < 62:
+            res2 = "7"
+            res3 = "劲风（疾风）"
+            res4 = "步行困难"
+        elif float(res) < 75:
+            res2 = "8"
+            res3 = "狂风大作"
+            res4 = "狂风大作"
+        elif float(res) < 88:
+            res2 = "9"
+            res3 = "狂风呼啸"
+            res4 = "狂风呼啸"
+        elif float(res) < 103:
+            res2 = "10"
+            res3 = "暴风毁树"
+            res4 = "暴风毁树"
+        elif float(res) < 118:
+            res2 = "11"
+            res3 = "暴风毁树"
+            res4 = "暴风毁树"
+        elif float(res) < 134:
+            res2 = "12"
+            res3 = "飓风"
+            res4 = "飓风"
+        elif float(res) < 150:
+            res2 = "13"
+            res3 = "台风"
+            res4 = "台风"
+        elif float(res) < 167:
+            res2 = "14"
+            res3 = "强台风"
+            res4 = "强台风"
+        elif float(res) < 184:
+            res2 = "15"
+            res3 = "强台风"
+            res4 = "强台风"
+        elif float(res) < 202:
+            res2 = "16"
+            res3 = "超强台风"
+            res4 = "超强台风"
+        else:
+            res2 = "17+"
+            res3 = "超强台风"
+            res4 = "超强台风"
+        
+            return res2
 
     async def async_added_to_hass(self):
         """Connect to dispatcher listening for entity data notifications."""

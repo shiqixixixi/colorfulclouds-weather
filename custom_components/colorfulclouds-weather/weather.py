@@ -68,6 +68,7 @@ CONDITION_MAP = {
     'RAIN': 'rainy',
     'SNOW': 'snowy',
 }
+
 CONDITION_CN_MAP = {
     'CLEAR_DAY': '晴',
     'CLEAR_NIGHT': '晴',

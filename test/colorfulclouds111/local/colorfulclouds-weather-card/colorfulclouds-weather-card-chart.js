@@ -14805,7 +14805,7 @@
         this.windSpeed = this.weather.attributes.wind_speed;
         this.windDirection = this.weather.attributes.wind_bearing;
       }
-	
+  
       this.iconSize = this.config.icons_size ? this.config.icons_size : 22;
       this.unitSpeed = this.config.units && this.config.units.speed
         ? this.config.units.speed : 'km/h';
@@ -14901,7 +14901,7 @@
       if (this.forecastChart) {
         this.forecastChart.destroy();
       }
-
+	  
       var tempHiColor = config.temp1_color ? config.temp1_color : 'rgba(230, 100, 100, 1.0)';
       var tempLoColor = config.temp2_color ? config.temp2_color : 'rgba(68, 115, 158, 1.0)';
       var precipColor = config.precip_color ? config.precip_color : 'rgba(132, 209, 253, 1.0)';
@@ -14909,8 +14909,8 @@
       var lengthUnit = this._hass.config.unit_system.length;
       var precipUnit = lengthUnit === 'km' ? this.ll('units')['mm'] : this.ll('units')['in'];
       var forecast = weather.attributes.daily_forecast.slice(0, forecastItems);
-	  console.log(forecast)      
-    if ((new Date(forecast[1].datetime) - new Date(forecast[0].datetime)) < 864e5)
+	  console.log(forecast)
+      if ((new Date(forecast[1].datetime) - new Date(forecast[0].datetime)) < 864e5)
         var mode = 'hourly';
       else
         var mode = 'daily';
@@ -14932,9 +14932,9 @@
       var backgroundColor = style.getPropertyValue('--card-background-color');
       var textColor = style.getPropertyValue('--primary-text-color');
       var dividerColor = style.getPropertyValue('--divider-color');
-      if (config.show_thick_border == true){
-        dividerColor = "#dedede";
-      }
+	  if (config.show_thick_border == true){
+		  dividerColor = "#dedede";
+	  }
       const ctx = this.renderRoot.querySelector('#forecastChart').getContext('2d');
 
       Chart.defaults.color = textColor;
@@ -15095,7 +15095,7 @@
       });
     }
 	
-    drawCharthourly({config, language, weather, forecastItems} = this) {
+	drawCharthourly({config, language, weather, forecastItems} = this) {
 	  
       if (!weather || !weather.attributes || !weather.attributes.hourly_forecast) {
         return [];
@@ -15139,9 +15139,9 @@
       var backgroundColor = style.getPropertyValue('--card-background-color');
       var textColor = style.getPropertyValue('--primary-text-color');
       var dividerColor = style.getPropertyValue('--divider-color');
-      if (config.show_thick_border == true){
-        dividerColor = "#dedede";
-      }      
+	  if (config.show_thick_border == true){
+		  dividerColor = "#dedede";
+	  }
       const ctx = this.renderRoot.querySelector('#forecasthourlyChart').getContext('2d');
 
       Chart.defaults.color = textColor;
@@ -15446,7 +15446,7 @@
 			  <div class="not-found">
 				未安装彩云天气集成: <br/>
 				此卡片需要依赖彩云天气集成，
-				<a href="https://github.com/shiqixixixi/Colorfulclouds-weather">点击前往安装</a>
+				<a href="https://github.com/fineemb/Colorfulclouds-weather">点击前往安装</a>
 			  </div>
 			</ha-card>
 		  `;
@@ -15477,7 +15477,7 @@
 			</ha-card>
 		  `;
 		}
-	    const iconUrl = config.icon || '/colorfulclouds-weather-local/colorfulclouds-weather-card/weathericons/';
+	    const iconUrl = config.icon || '/colorfulclouds-local/colorfulclouds-weather-card/weathericons/';
 		const lang = _hass.selectedLanguage || _hass.language;
 		const next_rising = new Date(_hass.states["sun.sun"].attributes.next_rising);
 		const next_setting = new Date(_hass.states["sun.sun"].attributes.next_setting);  
@@ -15490,8 +15490,8 @@
 		// }	
 	
 	
-    if (!weather || !weather.attributes || !weather.attributes.daily_forecast) {
-      return p`
+      if (!weather || !weather.attributes || !weather.attributes.daily_forecast) {
+        return p`
         <style>
           .card {
             padding-top: ${config.title? '0px' : '16px'};
@@ -15509,16 +15509,16 @@
       }
       const forecast = weather.attributes.daily_forecast.slice(0, forecastItems);
 	  const hourly_forecast = weather.attributes.hourly_forecast ? weather.attributes.hourly_forecast.slice(0, forecastItems) : "";
- 
+
 	//console.log(hourly_forecast);
       return p`
       <ha-card header="${config.title}">	    
         <div class="card">
           ${this.renderMain()}
-		  ${this.renderKeypoint()}		  
-      ${this.renderWarning()}
-         ${this.renderAttributes()}		  
-  ${config.show_daily_forecast == false ? ``: p`
+		  ${this.renderKeypoint()}
+		  ${this.renderWarning()}
+          ${this.renderAttributes()}		  
+		  ${config.show_daily_forecast == false ? ``: p`
 		  <div class="divider"></div>
 		  <div class="conditions">
             ${forecast.map((item, index) => {
@@ -15535,13 +15535,13 @@
 			})
 			}
           </div>
-
-      ${config.show_daily_date == false ? ``: p`          
+		  
+		  ${config.show_daily_date == false ? ``: p`
 		  <div class="conditions">
             ${forecast.map((item, index) => {
-				if (index === 0) {
+				if (index === 0) {					
 					return p`
-          <i class="textdate daybackground day1" style="font-style: normal;">${new Date(item.datetime).toLocaleDateString(this.language,{month: "2-digit",day: "2-digit"})}</i>
+              <i class="textdate daybackground day1" style="font-style: normal;">${new Date(item.datetime).toLocaleDateString(this.language,{month: "2-digit",day: "2-digit"})}</i>
 					`
 				} else {					
 					return p`
@@ -15566,7 +15566,7 @@
 				}
 			})
 			}
-      </div>`}
+          </div>`}
 		  
 		  <div class="conditions">
             ${forecast.map((item, index) => {				
@@ -15580,25 +15580,25 @@
 					`
 				}
 			})
-    }
-    </div>
-${config.show_wind == true ? p`
-    <div class="conditions">
-      ${forecast.map((item, index) => {				
-  if (index === 0) {					
-    return p`
-        <i class="textdefault daybackground day1"><ha-icon icon="hass:${this.getWindDirIcon(item.wind_bearing)}"></ha-icon></i>
-    `
-  } else {					
-    return p`
-        <i class="textdefault daybackground day"><ha-icon icon="hass:${this.getWindDirIcon(item.wind_bearing)}"></ha-icon></i>
-    `
-  }
-})      
+			}
+          </div>
+		  ${config.show_wind == true ? p`
+          <div class="conditions">
+            ${forecast.map((item, index) => {				
+				if (index === 0) {					
+					return p`
+              <i class="textdefault daybackground day1"><ha-icon icon="hass:${this.getWindDirIcon(item.wind_bearing)}"></ha-icon></i>
+					`
+				} else {					
+					return p`
+              <i class="textdefault daybackground day"><ha-icon icon="hass:${this.getWindDirIcon(item.wind_bearing)}"></ha-icon></i>
+					`
+				}
+			})
 			}
           </div>
 		  
-          <div class="conditions">
+		  <div class="conditions">
             ${forecast.map((item, index) => {				
 				if (index === 0) {					
 					return p`
@@ -15633,7 +15633,7 @@ ${config.show_wind == true ? p`
           <div class="chart-container move1" style="display:${config.show_daily_chart == false ? 'none':'block'}">
             <canvas id="forecastChart"></canvas>
           </div>
-          <div class="conditions move">
+		  <div class="conditions move">
             ${forecast.map((item, index) => {				
 				if (index === 0) {					
 					return p`
@@ -15694,22 +15694,22 @@ ${config.show_wind == true ? p`
         .header div {
           display: flex;
         }
-        .header span {
-          font-size: 24px;
-        }
-            .title {
-              margin-left: 8px;
-              font-size: 12px;
+		.header span {
+			font-size: 24px;
+		}
+        .title {
+          margin-left: 8px;
+          font-size: 12px;
+		  align-items: baseline;
+          color: var(--secondary-text-color);
+		  min-width: 48px;
+        }		
+        .time {
+          font-size: 12px;
+          color: var(--secondary-text-color);
           align-items: baseline;
-              color: var(--secondary-text-color);
-          min-width: 48px;
-            }		
-            .time {
-              font-size: 12px;
-              color: var(--secondary-text-color);
-              align-items: baseline;
-          min-width: 118px;
-        }
+		  min-width: 118px;
+        }		
         .now {
           display: flex;
           justify-content: space-between;
@@ -15739,7 +15739,7 @@ ${config.show_wind == true ? p`
           display: block;
           text-align: center;
           color: var(--primary-text-color);          
-          border-right: 0.1em solid ${config.show_thick_border == true ? `#dedede;` : 'var(--divider-color)'};		  
+		  border-right: 0.1em solid ${config.show_thick_border == true ? `#dedede;` : 'var(--divider-color)'};		  
           line-height: 2;
           box-sizing: border-box;
         }
@@ -15748,9 +15748,9 @@ ${config.show_wind == true ? p`
           display: block;
           text-align: center;
           color: var(--primary-text-color);          
-          border-left: 0.1em solid ${config.show_thick_border == true ? `#dedede;` : 'var(--divider-color)'};
-          border-right: 0.1em solid ${config.show_thick_border == true ? `#dedede;` : 'var(--divider-color)'};
-              line-height: 2;
+		  border-left: 0.1em solid ${config.show_thick_border == true ? `#dedede;` : 'var(--divider-color)'};
+		  border-right: 0.1em solid ${config.show_thick_border == true ? `#dedede;` : 'var(--divider-color)'};
+          line-height: 2;
           box-sizing: border-box;
         }
 		.divider {
@@ -15787,7 +15787,7 @@ ${config.show_wind == true ? p`
           align-items: center;
           margin: 0px 4.5px 0px 4.5px;
         }
-        .move {
+		.move {
           position: relative;
           top: -29px;
         }
@@ -15798,7 +15798,7 @@ ${config.show_wind == true ? p`
         .move2 {
           position: relative;
           top: -34px;
-        }       
+        }
         .aqi,
         .alarm {
           font-size: 16px;
@@ -15848,55 +15848,55 @@ ${config.show_wind == true ? p`
           background-repeat: no-repeat;
           text-indent: -9999px;
         }
-        .textdefaut {
-          font-size: 12px;
-        }
-        .textdate {
-          font-size: 10px;
-        }
-        @media (max-width: 390px) {
-            .title {
-            margin-left: 4px;
-            font-size: 8px;
-            min-width: 36px;
-          }
-          .time {
-            font-size: 10px;
-            min-width: 110px;
-          }
-          .main {
-            font-size: 36px;
-            line-height: 1em;
-          }
-          .attributes div{
-            font-size: 12px;
-          }
-          .chart-title {
-            font-size: 14px;
-          }
-          .alarm {
-            font-size: 12px;
-          }
+		.textdefaut {
+			font-size: 12px;
+		}
+		.textdate {
+			font-size: 10px;
+		}
+		@media (max-width: 390px) {
+		    .title {
+			  margin-left: 4px;
+			  font-size: 8px;
+			  min-width: 36px;
+			}
+			.time {
+			  font-size: 10px;
+			  min-width: 110px;
+			}
+			.main {
+			  font-size: 36px;
+			  line-height: 1em;
+			}
+			.attributes div{
+			  font-size: 12px;
+			}
+			.chart-title {
+			  font-size: 14px;
+			}
+			.alarm {
+			  font-size: 12px;
+			}
       </style>
       <div class="header">
           <div style="align-items: baseline;">
-          <div style="align-items: baseline; cursor: pointer;" @click="${(e) => this.showMoreInfo(config.entity)}">
-          <span>${skycon2cn[weather.attributes.skycon]}</span>
-          ${this._showValue(weather.attributes.aqi) ? p`
-            <div class = "aqi ${this.aqiLevel(weather.attributes.aqi)}">${this.roundNumber(weather.attributes.aqi)}</div>
-          ` : ''}
-        </div>
-  <div class="title">${config.name || weather.attributes.city || weather.attributes.friendly_name}</div>
-      </div>		  
-      <div class="time">
-        <ha-icon icon="mdi:update"></ha-icon>
-        <div style="margin: 0 0 0 5px">${weather.attributes.update_time}</div>
+            <div style="align-items: baseline; cursor: pointer;" @click="${(e) => this.showMoreInfo(config.entity)}">
+              <span>${skycon2cn[weather.attributes.skycon]}</span>
+              ${this._showValue(weather.attributes.aqi) ? p`
+                <div class = "aqi ${this.aqiLevel(weather.attributes.aqi)}">${this.roundNumber(weather.attributes.aqi)}</div>
+              ` : ''}
+            </div>
+			<div class="title">${config.name || weather.attributes.city || weather.attributes.friendly_name}</div>
+          </div>		  
+          <div class="time">
+            <ha-icon icon="mdi:update"></ha-icon>
+            <div style="margin: 0 0 0 5px">${weather.attributes.update_time}</div>
+          </div>
       </div>
-  </div>
-<div class="now">
-<div class="main">
-  <i class="icon bigger" style="background: none, url(${config.icon || '/colorfulclouds-local/colorfulclouds-weather-card/weathericons/'}${weather.attributes.skycon}.svg) no-repeat; background-size: contain; cursor: pointer;" @click="${(e) => this.showMoreInfo(config.entity)}"></i>
-  ${this._showValue(temperature) ? p`
+	  <div class="now">
+		<div class="main">
+		  <i class="icon bigger" style="background: none, url(${config.icon || '/colorfulclouds-local/colorfulclouds-weather-card/weathericons/'}${weather.attributes.skycon}.svg) no-repeat; background-size: contain; cursor: pointer;" @click="${(e) => this.showMoreInfo(config.entity)}"></i>
+		  ${this._showValue(temperature) ? p`
 			<div style="cursor: pointer;" @click="${(e) => this.showMoreInfo(config.entity)}">${this.roundNumber(temperature)}<sup>${this.getUnit('temperature')}</sup></div>
 		  ` : p`
 			<div style="cursor: pointer;" @click="${(e) => this.showMoreInfo(config.entity)}">${this.roundNumber(weather.attributes.temperature)}<sup>${weather.attributes.temperature_unit}</sup></div>
@@ -15970,17 +15970,17 @@ ${config.show_wind == true ? p`
 				}
 				htmlstr += '<li style=\"font-weight:bold; color:red;\"><span class=\"ha-icon\"><ha-icon icon=\"mdi:timer-alert-outline\"></ha-icon></span> '+ indexstr +alert_title+'</li><li style=\"font-weight:nomal; color:red; display: '+isshowtext+'\"}\"><span class=\"ha-icon\"><ha-icon icon=\"mdi:message-alert-outline\"></ha-icon></span> '+alert_content+'</li>'
 			}
+			
+			return p`
+			<div>
+					<ul style="list-style:none;padding:0 0 0 14px;margin: 0;">
+					  ${this.unsafeHTML(htmlstr)}
+					</ul>
+				  </div>
+			`; 
 
-		return p`
-		 <div>
-			<ul style="list-style:none;padding:0 0 0 14px;margin: 0;">
-      ${this.unsafeHTML(htmlstr)}
-			</ul>
-		  </div>
-		`;
-
-	}	
-
+	}
+	
 	unsafeHTML(htmlString) {
 	  const template = document.createElement('template');
 	  template.innerHTML = htmlString;

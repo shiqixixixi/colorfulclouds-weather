@@ -158,16 +158,16 @@ TRANSLATE_SUGGESTION = {
 ATTR_SUGGESTION = "suggestion"
 
 async def async_setup_entry(hass, config_entry, async_add_entities):    
-    """Add a colorfulclouds-weather weather entity from a config_entry."""
+    """Add a Colorfulclouds weather entity from a config_entry."""
     name = config_entry.data[CONF_NAME]
     life = config_entry.options.get(CONF_LIFEINDEX, False)
 
     coordinator = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
     _LOGGER.debug("metric: %s", coordinator.data["is_metric"])
 
-    async_add_entities([colorfulclouds_weatherEntity(name, life, coordinator)], False)
+    async_add_entities([ColorfulCloudsEntity(name, life, coordinator)], False)
             
-class colorfulclouds_weatherEntity(WeatherEntity):
+class ColorfulCloudsEntity(WeatherEntity):
     """Representation of a weather condition."""
 
     def __init__(self, name, life, coordinator):
@@ -214,6 +214,7 @@ class colorfulclouds_weatherEntity(WeatherEntity):
         if self._forecast_twice_daily:
             self._attr_supported_features |= WeatherEntityFeature.FORECAST_TWICE_DAILY
         
+
     @property
     def name(self):
         return self._name
@@ -226,7 +227,7 @@ class colorfulclouds_weatherEntity(WeatherEntity):
     @property
     def unique_id(self):
         """Return a unique_id for this entity."""
-        _LOGGER.debug("weather_unique_id: %s", self.coordinator.data["location_key"])
+        #_LOGGER.debug("weather_unique_id: %s", self.coordinator.data["location_key"])
         return self.coordinator.data["location_key"]
 
     @property
@@ -364,7 +365,7 @@ class colorfulclouds_weatherEntity(WeatherEntity):
     @property
     def updatetime(self):
         """实时天气预报获取时间."""
-        return datetime.fromtimestamp(self.coordinator.data['server_time'])          
+        return datetime.fromtimestamp(self.coordinator.data['server_time'])
         
         
     async def async_forecast_daily(self) -> list[Forecast]:
@@ -520,7 +521,7 @@ class colorfulclouds_weatherEntity(WeatherEntity):
     @property
     def state_attributes(self):
         _LOGGER.debug(self.coordinator.data)
-        data = super(colorfulclouds_weatherEntity, self).state_attributes
+        data = super(ColorfulCloudsEntity, self).state_attributes
         data['forecast_hourly'] = self.forecast_hourly
         data['forecast_minutely'] = self.forecast_minutely
         data['forecast_probability'] = self.forecast_minutely_probability
@@ -550,8 +551,6 @@ class colorfulclouds_weatherEntity(WeatherEntity):
         data['sunset'] = self.coordinator.data['result']['daily']['astro'][0]['sunset']['time']
         
         data['city'] = self.coordinator.data['result']['alert']['adcodes'][len(self.coordinator.data['result']['alert']['adcodes'])-1]['name']
-        
-        data['hourly_pm25'] = self.coordinator.data['result']['hourly']['air_quality']['pm25']
         
         if self.life == True:
             data[ATTR_SUGGESTION] = [{'title': k, 'title_cn': TRANSLATE_SUGGESTION.get(k,k), 'brf': v.get('desc'), 'txt': v.get('detail') } for k, v in self.coordinator.data['lifeindex'].items()]
@@ -792,6 +791,6 @@ class colorfulclouds_weatherEntity(WeatherEntity):
         )
 
     async def async_update(self):
-        """Update colorfulclouds-weather entity."""
+        """Update Colorfulclouds entity."""
         await self.coordinator.async_request_refresh()
         

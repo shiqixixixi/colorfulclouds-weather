@@ -3,15 +3,11 @@ console.info("%c  WEATHER CARD Extends \n%c  Version 2023.6.18 ",
 "color: white; font-weight: bold; background: dimgray");
 
 import {
-  LitElement,
-  html,
-  css
-  } from "https://unpkg.com/lit-element@2.0.1/lit-element.js?module";
-        // "./lit-element@2.0.1/lit-element.js?module"
-  import { classMap } from 'https://unpkg.com/lit-html/directives/class-map.js?module';
-import { repeat } from 'https://unpkg.com/lit-html/directives/repeat.js?module';
-  
-
+LitElement,
+html,
+css
+} from "./lit-element@2.0.1/lit-element.js?module";
+// "https://unpkg.com/lit-element@2.0.1/lit-element.js?module";
 
 const locale = {
   'zh-Hans': {
@@ -308,18 +304,18 @@ class MoreInfoWeather extends LitElement {
 			  </div>
 			  <div>${this.stateObj.attributes.visibility} ${this.stateObj.attributes.visibility_unit}</div>
 			</div>
-			` : ''}
-			${this.stateObj.attributes.forecast_alert.content ? html`
-			  <div class="section">气象预警:</div>
-			  ${this.stateObj.attributes.forecast_alert.content.map(
-				  (item) => html`
-					<div class="suggestion_brf">
-					  <div>-&nbsp;&nbsp;${item.title}</div>
-					  <div>${item.status}</div>
-					</div>
-				<div class="suggestion_txt">${item.description}</div>
-				  `,
-				)}			
+		  ` : ''}
+		  ${this.stateObj.attributes.forecast_alert.content ? html`
+			<div class="section">气象预警:</div>
+			${this.stateObj.attributes.forecast_alert.content.map(
+				(item) => html`
+				  <div class="suggestion_brf">
+					<div>-&nbsp;&nbsp;${item.title}</div>
+					<div>${item.status}</div>
+				  </div>
+			  <div class="suggestion_txt">${item.description}</div>
+				`,
+			  )}	
 		  ` : ''}
 		  ${this.stateObj.attributes.suggestion ? html`
 			<div class="section">生活指数:</div>
